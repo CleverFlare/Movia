@@ -2,6 +2,8 @@
 #
 .DS_Store
 
+constants.ts
+
 # Xcode
 #
 build/
