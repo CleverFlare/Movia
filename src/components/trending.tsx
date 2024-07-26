@@ -1,5 +1,5 @@
 import {MotiView} from 'moti';
-import React, {Ref, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -27,6 +27,7 @@ export default function Trending({movies}: {movies: number[]}) {
         autoplay
         loop
         onSnapToItem={index => setActiveSlide(index)}
+        autoplayInterval={5000}
         slideStyle={{
           display: 'flex',
           alignItems: 'center',
