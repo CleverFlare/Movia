@@ -6,21 +6,10 @@
  */
 
 import React from 'react';
-import {Button, SafeAreaView, Alert} from 'react-native';
-
-// import {Colors} from 'react-native/Libraries/NewAppScreen';
+import AppNavigation from './src/navigation/app-navigation';
 
 function App(): React.JSX.Element {
-  const handlePress = () =>
-    Alert.alert('My Own Title', 'My Own Message', [
-      {text: 'Yes'},
-      {text: 'No'},
-    ]);
-  return (
-    <SafeAreaView className="flex-1 bg-neutral-800 justify-center items-center">
-      <Button onPress={handlePress} title="Click Me!" />
-    </SafeAreaView>
-  );
+  return <AppNavigation />;
 }
 
 export default App;
