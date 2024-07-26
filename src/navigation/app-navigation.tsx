@@ -2,8 +2,14 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/home';
+import MovieScreen from '../screens/movie';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Movie: {movieId: number};
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigation() {
   return (
@@ -15,9 +21,9 @@ export default function AppNavigation() {
           component={HomeScreen}
         />
         <Stack.Screen
-          name="Movies"
+          name="Movie"
           options={{headerShown: false}}
-          component={HomeScreen}
+          component={MovieScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

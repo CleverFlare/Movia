@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {type Movie} from '../types/movie';
 
 const {width, height} = Dimensions.get('window');
 
@@ -17,7 +18,7 @@ export default function MovieList({
   movies,
 }: {
   title: string;
-  movies: number[];
+  movies: Movie[];
 }) {
   const navigation = useNavigation();
   const dummyName = 'Ant-Man and the Wasp: Quantumania';
@@ -36,7 +37,7 @@ export default function MovieList({
         {movies.map(movie => (
           <TouchableWithoutFeedback
             key={movie}
-            onPress={() => navigation.navigate('Movie', movie + '')}>
+            onPress={() => navigation.navigate('Movie', {movieId: movie})}>
             <View className="space-y-1">
               <Image
                 source={require('../assets/dummy_poster_2.jpg')}
