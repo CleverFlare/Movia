@@ -15,12 +15,14 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 import Loading from '../components/loading';
 import {image185, searchMovies} from '../api/moviedb';
 import {Movie} from '../types/movie';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/app-navigation';
 
 const {height} = Dimensions.get('window');
 
 export default function SearchScreen() {
   const [results, setResults] = useState<Movie[]>([]);
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [loading, setLoading] = useState<boolean>(false);
 
   async function handleSearch({
@@ -79,7 +81,7 @@ export default function SearchScreen() {
               columnWrapperStyle={{gap: 16}}
               renderItem={({item: movie}: {item: Movie}) => (
                 <TouchableWithoutFeedback
-                  onPress={() => navigation.navigate('Movie', {id: movie.id})}>
+                  onPress={() => navigation.push('Movie', {id: movie.id})}>
                   <View className="space-y-2 flex-1">
                     <Image
                       source={{

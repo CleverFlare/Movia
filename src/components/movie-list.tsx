@@ -12,6 +12,8 @@ import {useNavigation} from '@react-navigation/native';
 import {type Movie} from '../types/movie';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import {image500} from '../api/moviedb';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/app-navigation';
 
 const {width, height} = Dimensions.get('window');
 
@@ -24,7 +26,7 @@ export default function MovieList({
   movies: Movie[];
   hideSeeAll?: boolean;
 }) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   return (
     <View className="space-y-1">
       <View className="flex-row items-center justify-between">
