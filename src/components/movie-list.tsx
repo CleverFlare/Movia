@@ -46,7 +46,11 @@ export default function MovieList({
             onPress={() => navigation.navigate('Movie', {id: movie.id})}>
             <View className="space-y-1">
               <Image
-                source={{uri: image500(movie.poster_path) ?? ''}}
+                source={{
+                  uri:
+                    image500(movie.poster_path) ??
+                    'https://www.juliedray.com/wp-content/uploads/2022/01/sans-affiche.png',
+                }}
                 className="rounded-2xl"
                 style={{width: width * 0.33, height: height * 0.22}}
               />

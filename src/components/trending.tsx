@@ -11,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {type Movie} from '../types/movie';
 import {image500} from '../api/moviedb';
+import {useNavigation} from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -82,8 +83,10 @@ function MovieCard({
   data: Movie;
   genres: Record<number, string>;
 }) {
+  const navigation = useNavigation();
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback
+      onPress={() => navigation.navigate('Movie', {id: data.id})}>
       <View
         className="overflow-hidden justify-end relative"
         style={{width, height: height * 0.55}}>
@@ -108,7 +111,7 @@ function MovieCard({
         <View className="mx-4">
           <Text className="text-2xl font-bold">{data.title}</Text>
           <Text className="text-neutral-400 text-sm">
-            {data.genre_ids.map(id => genres[id]).join(' • ')}
+            {data.genre_ids?.map(id => genres[id]).join(' • ')}
           </Text>
         </View>
       </View>
