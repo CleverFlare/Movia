@@ -45,24 +45,7 @@ export default function HomeScreen() {
 
   async function getPopularActors() {
     const people = await fetchPopularPeople();
-    if (people && people.results)
-      setPeople(
-        people.results.map(
-          ({
-            id,
-            name,
-            profile_path,
-          }: {
-            id: number;
-            name: string;
-            profile_path: string;
-          }) => ({
-            id,
-            original_name: name,
-            profile_path,
-          }),
-        ),
-      );
+    if (people && people.results) setPeople(people.results);
   }
 
   async function getTrendingMovies() {
@@ -112,7 +95,9 @@ export default function HomeScreen() {
           <Trending movies={trending} genres={genres} />
           <View className="p-4" style={{gap: 20}}>
             <MovieList title="Upcoming" movies={upcoming} />
-            <People title="Popular Actors" people={people} />
+            {people.length > 0 && (
+              <People title="Popular Actors" people={people} />
+            )}
             <MovieList title="Top Rated" movies={topRated} />
           </View>
         </ScrollView>

@@ -38,12 +38,13 @@ export default function People({
                 }}
                 className="rounded-2xl w-20 h-20"
               />
-              <Text
-                className="text-white flex-1 flex-wrap text-center"
-                style={{fontSize: 12}}>
-                {cast.original_name.length > 18
-                  ? cast.original_name.slice(0, 18) + '...'
-                  : cast.original_name}
+              <Text className="text-white text-center" style={{fontSize: 12}}>
+                {(cast?.name ?? cast?.original_name ?? 'Unknown').length > 12
+                  ? (cast?.name ?? cast?.original_name ?? 'Unknown').slice(
+                      0,
+                      12,
+                    ) + '...'
+                  : cast?.name ?? cast?.original_name ?? 'Unknown'}
               </Text>
               {cast.character && (
                 <Text
