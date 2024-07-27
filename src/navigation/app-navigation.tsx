@@ -4,7 +4,7 @@ import HomeScreen from '../screens/home';
 import MovieScreen from '../screens/movie';
 import PersonScreen from '../screens/person';
 import SearchScreen from '../screens/search';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -13,7 +13,7 @@ export type RootStackParamList = {
   Search: undefined;
 };
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigation() {
   return (
