@@ -163,8 +163,10 @@ export default function MovieScreen() {
             </Text>
           </View>
           <View className="p-4" style={{gap: 16}}>
-            <People title="Cast" people={people} />
-            <MovieList title="Similar" movies={similar} hideSeeAll />
+            {similar.length > 0 && <People title="Cast" people={people} />}
+            {similar.length > 0 && (
+              <MovieList title="Similar" movies={similar} hideSeeAll />
+            )}
           </View>
         </>
       )}

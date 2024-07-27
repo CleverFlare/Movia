@@ -42,7 +42,7 @@ export default function MovieList({
         contentContainerStyle={{marginTop: 4, gap: 20}}>
         {movies.map(movie => (
           <TouchableWithoutFeedback
-            key={movie.id}
+            key={`${movie.id} ${movie.title}`}
             onPress={() => navigation.navigate('Movie', {id: movie.id})}>
             <View className="space-y-1">
               <Image

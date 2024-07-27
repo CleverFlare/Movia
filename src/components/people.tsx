@@ -25,9 +25,9 @@ export default function People({
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{marginTop: 4, gap: 20}}>
-        {people.map(cast => (
+        {people.map((cast, index) => (
           <TouchableWithoutFeedback
-            key={cast.id}
+            key={`${cast.id} ${cast.original_name} ${index}`}
             onPress={() => navigation.navigate('Person', {id: 1})}>
             <View className="w-20 space-y-1">
               <Image
