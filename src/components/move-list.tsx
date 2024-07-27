@@ -11,6 +11,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {type Movie} from '../types/movie';
 import Icon from 'react-native-vector-icons/FontAwesome6';
+import {image500} from '../api/moviedb';
 
 const {width, height} = Dimensions.get('window');
 
@@ -24,7 +25,6 @@ export default function MovieList({
   hideSeeAll?: boolean;
 }) {
   const navigation = useNavigation();
-  const dummyName = 'Ant-Man and the Wasp: Quantumania';
   return (
     <View className="space-y-1">
       <View className="flex-row items-center justify-between">
@@ -42,24 +42,24 @@ export default function MovieList({
         contentContainerStyle={{marginTop: 4, gap: 20}}>
         {movies.map(movie => (
           <TouchableWithoutFeedback
-            key={movie}
-            onPress={() => navigation.navigate('Movie', {movieId: movie})}>
+            key={movie.id}
+            onPress={() => navigation.navigate('Movie', {movieId: movie.id})}>
             <View className="space-y-1">
               <Image
-                source={require('../assets/dummy_poster_2.jpg')}
+                source={{uri: image500(movie.poster_path) ?? ''}}
                 className="rounded-2xl"
                 style={{width: width * 0.33, height: height * 0.22}}
               />
 
               <Text className="text-neutral-300">
-                {dummyName.length > 14
-                  ? dummyName.slice(0, 14) + '...'
-                  : dummyName}
+                {movie.title.length > 14
+                  ? movie.title.slice(0, 14) + '...'
+                  : movie.title}
               </Text>
               <View className="flex-row space-x-1 items-center">
                 <Icon name="star" color="orange" solid size={14} />
                 <Text className="text-neutral-400" style={{fontSize: 14}}>
-                  4.3
+                  {movie.popularity}
                 </Text>
               </View>
             </View>

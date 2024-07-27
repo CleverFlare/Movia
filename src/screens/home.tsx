@@ -9,26 +9,45 @@ import People from '../components/people';
 import {Cast} from '../types/cast';
 import {useNavigation} from '@react-navigation/native';
 import Loading from '../components/loading';
-import {fetchGenres, fetchTrending} from '../api/moviedb';
+import {fetchGenres, fetchPopularPeople, fetchTrending} from '../api/moviedb';
 
 const ios = Platform.OS === 'ios';
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Record<number, string>>({});
-  const [people] = useState<Cast[]>([
-    {name: 'a', role: '', image: ''},
-    {name: 'b', role: '', image: ''},
-    {name: 'c', role: '', image: ''},
-    {name: 'd', role: '', image: ''},
-    {name: 'e', role: '', image: ''},
-  ]);
+  const [people, setPeople] = useState<Cast[]>([]);
   const navigation = useNavigation();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getTrendingMovies();
+    getPopularActors();
   }, []);
+
+  async function getPopularActors() {
+    const people = await fetchPopularPeople();
+    if (people && people.results)
+      setPeople(
+        people.results
+          .slice(0, 6)
+          .map(
+            ({
+              id,
+              name,
+              profile_path,
+            }: {
+              id: number;
+              name: string;
+              profile_path: string;
+            }) => ({
+              id,
+              original_name: name,
+              profile_path,
+            }),
+          ),
+      );
+  }
 
   async function getTrendingMovies() {
     const {genres} = (await fetchGenres()) as {

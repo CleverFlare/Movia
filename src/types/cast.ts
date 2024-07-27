@@ -1,5 +1,6 @@
-export type Cast = {
-  name: string;
-  role: string;
-  image: string;
+export type Cast = Record<string, unknown> & {
+  id: string;
+  original_name: string;
+  character: string;
+  profile_path: string;
 };

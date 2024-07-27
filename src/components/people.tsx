@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {Cast} from '../types/cast';
 import {useNavigation} from '@react-navigation/native';
+import {image185} from '../api/moviedb';
 
 export default function People({
   people,
@@ -17,10 +18,6 @@ export default function People({
   title: string;
 }) {
   const navigation = useNavigation();
-  people;
-  title;
-  const dummyName = 'Muhammad Maher';
-  const dummyRole = 'Clark Kent';
   return (
     <View className="space-y-2">
       <Text className="text-xl text-white font-bold">{title}</Text>
@@ -30,27 +27,29 @@ export default function People({
         contentContainerStyle={{marginTop: 4, gap: 20}}>
         {people.map(cast => (
           <TouchableWithoutFeedback
-            key={cast.name}
+            key={cast.id}
             onPress={() => navigation.navigate('Person', {personId: 1})}>
             <View className="w-20 space-y-1">
               <Image
-                source={require('../assets/actor.jpg')}
+                source={{uri: image185(cast.profile_path) ?? ''}}
                 className="rounded-2xl w-20 h-20"
               />
               <Text
                 className="text-white flex-1 flex-wrap text-center"
                 style={{fontSize: 12}}>
-                {dummyName.length > 18
-                  ? dummyName.slice(0, 18) + '...'
-                  : dummyName}
+                {cast.original_name.length > 18
+                  ? cast.original_name.slice(0, 18) + '...'
+                  : cast.original_name}
               </Text>
-              <Text
-                className="text-neutral-400 text-center"
-                style={{fontSize: 12}}>
-                {dummyRole.length > 10
-                  ? dummyRole.slice(0, 10) + '...'
-                  : dummyRole}
-              </Text>
+              {cast.character && (
+                <Text
+                  className="text-neutral-400 text-center"
+                  style={{fontSize: 12}}>
+                  {cast.character.length > 10
+                    ? cast.character.slice(0, 10) + '...'
+                    : cast.character}
+                </Text>
+              )}
             </View>
           </TouchableWithoutFeedback>
         ))}
