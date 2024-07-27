@@ -10,11 +10,15 @@ import {Cast} from '../types/cast';
 import {useNavigation} from '@react-navigation/native';
 import Loading from '../components/loading';
 import {fetchGenres, fetchPopularPeople, fetchTrending} from '../api/moviedb';
+import {fetchTopRated} from '../api/moviedb';
+import {fetchUpcoming} from '../api/moviedb';
 
 const ios = Platform.OS === 'ios';
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState<Movie[]>([]);
+  const [topRated, setTopRated] = useState<Movie[]>([]);
+  const [upcoming, setUpcoming] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Record<number, string>>({});
   const [people, setPeople] = useState<Cast[]>([]);
   const navigation = useNavigation();
@@ -23,29 +27,40 @@ export default function HomeScreen() {
   useEffect(() => {
     getTrendingMovies();
     getPopularActors();
+    getTopRatedMovies();
+    getUpcomingMovies();
   }, []);
+  async function getUpcomingMovies() {
+    const upcomingMovies = await fetchUpcoming();
+    if (upcomingMovies && upcomingMovies.results)
+      setUpcoming(upcomingMovies.results);
+  }
+
+  async function getTopRatedMovies() {
+    const topRatedMovies = await fetchTopRated();
+    if (topRatedMovies && topRatedMovies.results)
+      setTopRated(topRatedMovies.results);
+  }
 
   async function getPopularActors() {
     const people = await fetchPopularPeople();
     if (people && people.results)
       setPeople(
-        people.results
-          .slice(0, 6)
-          .map(
-            ({
-              id,
-              name,
-              profile_path,
-            }: {
-              id: number;
-              name: string;
-              profile_path: string;
-            }) => ({
-              id,
-              original_name: name,
-              profile_path,
-            }),
-          ),
+        people.results.map(
+          ({
+            id,
+            name,
+            profile_path,
+          }: {
+            id: number;
+            name: string;
+            profile_path: string;
+          }) => ({
+            id,
+            original_name: name,
+            profile_path,
+          }),
+        ),
       );
   }
 
@@ -96,9 +111,9 @@ export default function HomeScreen() {
           </SafeAreaView>
           <Trending movies={trending} genres={genres} />
           <View className="p-4" style={{gap: 20}}>
-            <MovieList title="Upcoming" movies={trending} />
+            <MovieList title="Upcoming" movies={upcoming} />
             <People title="Popular Actors" people={people} />
-            <MovieList title="Top Rated" movies={trending} />
+            <MovieList title="Top Rated" movies={topRated} />
           </View>
         </ScrollView>
       )}
