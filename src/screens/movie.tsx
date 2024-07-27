@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {
   Dimensions,
   Image,
@@ -15,20 +15,70 @@ import People from '../components/people';
 import {type Cast} from '../types/cast';
 import MovieList from '../components/movie-list';
 import Loading from '../components/loading';
+import {RootStackParamList} from '../navigation/app-navigation';
+import {
+  fetchMovieCredits,
+  fetchMovieDetails,
+  fetchMovieSimilar,
+  image500,
+} from '../api/moviedb';
+import {Movie} from '../types/movie';
 
 const {width, height} = Dimensions.get('window');
 
 export default function MovieScreen() {
-  const dummyName = 'Ant-Man and the Wasp: Quantumania';
-  const {params} = useRoute();
+  const {params}: RouteProp<RootStackParamList> = useRoute();
   const navigation = useNavigation();
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [people] = useState<Cast[]>([]);
-  const [loading] = useState<boolean>(false);
+  const [people, setPeople] = useState<Cast[]>([]);
+  const [details, setDetails] = useState<Movie>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [similar, setSimilar] = useState<Movie[]>([]);
 
   useEffect(() => {
-    params;
+    getMovieDetails(params?.id ?? 0);
+    getCredits(params?.id ?? 0);
+    getSimilar(params?.id ?? 0);
   }, [params]);
+
+  async function getSimilar(id: number) {
+    try {
+      const similarMovies = await fetchMovieSimilar(id);
+      if (similarMovies && similarMovies.results)
+        setSimilar(similarMovies.results);
+      setLoading(false);
+    } catch (err) {
+      console.log('ERROR:', err);
+    }
+  }
+
+  async function getCredits(id: number) {
+    try {
+      const movieCredits = await fetchMovieCredits(id);
+      if (movieCredits && movieCredits.cast) setPeople(movieCredits.cast);
+    } catch (err) {
+      console.log('ERROR:', err);
+    }
+  }
+
+  async function getMovieDetails(id: number) {
+    try {
+      const movieDetails = await fetchMovieDetails(id);
+      if (movieDetails)
+        setDetails({
+          id: movieDetails.id,
+          title: movieDetails.original_title,
+          poster_path: movieDetails.poster_path,
+          vote_average: movieDetails.vote_average,
+          genres: movieDetails.genres,
+          runtime: movieDetails.runtime,
+          release_date: movieDetails.release_date,
+          overview: movieDetails.overview,
+        });
+    } catch (err) {
+      console.log('ERROR:', err);
+    }
+  }
 
   return (
     <ScrollView
@@ -61,7 +111,11 @@ export default function MovieScreen() {
             </SafeAreaView>
             <View>
               <Image
-                source={require('../assets/dummy_poster_2.jpg')}
+                source={{
+                  uri:
+                    image500(details?.poster_path ?? '') ??
+                    'https://www.juliedray.com/wp-content/uploads/2022/01/sans-affiche.png',
+                }}
                 style={{width, height: height * 0.55}}
               />
               <LinearGradient
@@ -80,34 +134,46 @@ export default function MovieScreen() {
           <View
             style={{marginTop: -(height * 0.09)}}
             className="space-y-2 px-4">
-            <Text className="text-xl font-bold">{dummyName}</Text>
+            <Text className="text-xl text-white font-bold">
+              {details?.title ?? 'Unknown Movie Title'}
+            </Text>
             <Text className="text-neutral-400 font-bold" style={{fontSize: 14}}>
-              2021 • Horror, Thriller • 20h 5min
+              {details?.release_date
+                ? details.release_date.split('-')[0]
+                : 'Unknown Release Date'}{' '}
+              •{' '}
+              {details?.genres?.map(({name}) => name).join(', ') ??
+                'Unknown Genres'}{' '}
+              •{' '}
+              {details?.runtime
+                ? convertMinutesToHoursAndMinutes(details.runtime)
+                : 'Unknown Movie Time'}
             </Text>
             <View className="flex-row space-x-1 items-center">
               <Icon name="star" color="orange" solid size={14} />
               <Text className="text-neutral-400" style={{fontSize: 14}}>
-                4.3
+                {details?.vote_average.toFixed(1) ?? 'Unknown Rating'}
               </Text>
             </View>
           </View>
           <View className="p-4 space-y-2">
             <Text className="text-xl text-white font-bold">Story</Text>
             <Text className="text-neutral-400">
-              Super-Hero partners Scott Lang and Hope van Dyne, along with with
-              Hope's parents Janet van Dyne and Hank Pym, and Scott's daughter
-              Cassie Lang, find themselves exploring the Quantum Realm,
-              interacting with strange new creatures and embarking on an
-              adventure that will push them beyond the limits of what they
-              thought possible.
+              {details?.overview ?? 'Unknown Story'}
             </Text>
           </View>
           <View className="p-4" style={{gap: 16}}>
             <People title="Cast" people={people} />
-            <MovieList title="Similar" movies={[]} hideSeeAll />
+            <MovieList title="Similar" movies={similar} hideSeeAll />
           </View>
         </>
       )}
     </ScrollView>
   );
+}
+
+function convertMinutesToHoursAndMinutes(minutes: number) {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  return `${hours}h ${remainingMinutes}m`;
 }

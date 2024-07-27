@@ -28,10 +28,14 @@ export default function People({
         {people.map(cast => (
           <TouchableWithoutFeedback
             key={cast.id}
-            onPress={() => navigation.navigate('Person', {personId: 1})}>
+            onPress={() => navigation.navigate('Person', {id: 1})}>
             <View className="w-20 space-y-1">
               <Image
-                source={{uri: image185(cast.profile_path) ?? ''}}
+                source={{
+                  uri:
+                    image185(cast.profile_path) ??
+                    'https://media.istockphoto.com/id/1327592449/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=1024x1024&w=is&k=20&c=sLlDgR_nFD10RmmlaqooFOgT7q2deQJSUtf3X_yP4K0=',
+                }}
                 className="rounded-2xl w-20 h-20"
               />
               <Text

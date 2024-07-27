@@ -8,6 +8,14 @@ const upcomingEndpoint = `${baseUrl}/movie/upcoming?api_key=${API_KEY}`;
 const topRatedEndpoint = `${baseUrl}/movie/top_rated?api_key=${API_KEY}`;
 const popularPeopleEndpoint = `${baseUrl}/person/popular?api_key=${API_KEY}`;
 const genresEndpoint = `${baseUrl}/genre/movie/list?api_key=${API_KEY}`;
+const movieDetailsEndpoint = (movie_id: number) =>
+  `${baseUrl}/movie/${movie_id}?api_key=${API_KEY}`;
+
+const creditsEndpoint = (movie_id: number) =>
+  `${baseUrl}/movie/${movie_id}/credits?api_key=${API_KEY}`;
+
+const similarEndpoint = (movie_id: number) =>
+  `${baseUrl}/movie/${movie_id}/similar?api_key=${API_KEY}`;
 
 const apiCall = async (endpoint: string, params?: Record<string, unknown>) => {
   const options = {
@@ -43,6 +51,18 @@ export const fetchUpcoming = () => {
 
 export const fetchPopularPeople = () => {
   return apiCall(popularPeopleEndpoint);
+};
+
+export const fetchMovieDetails = (id: number) => {
+  return apiCall(movieDetailsEndpoint(id));
+};
+
+export const fetchMovieCredits = (id: number) => {
+  return apiCall(creditsEndpoint(id));
+};
+
+export const fetchMovieSimilar = (id: number) => {
+  return apiCall(similarEndpoint(id));
 };
 
 export const image500 = (path: string) =>

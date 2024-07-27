@@ -34,6 +34,7 @@ export default function HomeScreen() {
     const upcomingMovies = await fetchUpcoming();
     if (upcomingMovies && upcomingMovies.results)
       setUpcoming(upcomingMovies.results);
+    setLoading(false);
   }
 
   async function getTopRatedMovies() {
@@ -82,7 +83,6 @@ export default function HomeScreen() {
 
     const data = await fetchTrending();
     if (data && data.results) setTrending(data.results.slice(0, 6));
-    setLoading(false);
   }
 
   return (
