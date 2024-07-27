@@ -3,5 +3,5 @@ export type Movie = Record<string, unknown> & {
   title: string;
   poster_path: string;
   genre_ids: number[];
-  popularity: number;
+  vote_average: number;
 };

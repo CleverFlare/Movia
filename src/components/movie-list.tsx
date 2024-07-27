@@ -59,7 +59,7 @@ export default function MovieList({
               <View className="flex-row space-x-1 items-center">
                 <Icon name="star" color="orange" solid size={14} />
                 <Text className="text-neutral-400" style={{fontSize: 14}}>
-                  {movie.popularity}
+                  {movie.vote_average.toFixed(1)}
                 </Text>
               </View>
             </View>

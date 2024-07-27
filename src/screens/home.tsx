@@ -3,7 +3,7 @@ import {Platform, ScrollView, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import Trending from '../components/trending';
-import MovieList from '../components/move-list';
+import MovieList from '../components/movie-list';
 import {type Movie} from '../types/movie';
 import People from '../components/people';
 import {Cast} from '../types/cast';

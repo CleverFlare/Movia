@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome6';
-import MovieList from '../components/move-list';
+import MovieList from '../components/movie-list';
 import Loading from '../components/loading';
 
 const {width, height} = Dimensions.get('window');

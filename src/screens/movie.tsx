@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Text} from 'moti';
 import People from '../components/people';
 import {type Cast} from '../types/cast';
-import MovieList from '../components/move-list';
+import MovieList from '../components/movie-list';
 import Loading from '../components/loading';
 
 const {width, height} = Dimensions.get('window');
@@ -23,13 +23,7 @@ export default function MovieScreen() {
   const {params} = useRoute();
   const navigation = useNavigation();
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [people] = useState<Cast[]>([
-    {name: 'a', role: '', image: ''},
-    {name: 'b', role: '', image: ''},
-    {name: 'c', role: '', image: ''},
-    {name: 'd', role: '', image: ''},
-    {name: 'e', role: '', image: ''},
-  ]);
+  const [people] = useState<Cast[]>([]);
   const [loading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -110,7 +104,7 @@ export default function MovieScreen() {
           </View>
           <View className="p-4" style={{gap: 16}}>
             <People title="Cast" people={people} />
-            <MovieList title="Similar" movies={[1, 2, 3]} hideSeeAll />
+            <MovieList title="Similar" movies={[]} hideSeeAll />
           </View>
         </>
       )}
