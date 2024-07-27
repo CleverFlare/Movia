@@ -17,6 +17,12 @@ const creditsEndpoint = (movie_id: number) =>
 const similarEndpoint = (movie_id: number) =>
   `${baseUrl}/movie/${movie_id}/similar?api_key=${API_KEY}`;
 
+const personDetailsEndpoint = (person_id: number) =>
+  `${baseUrl}/person/${person_id}?api_key=${API_KEY}`;
+
+const personCreditsEndpoint = (person_id: number) =>
+  `${baseUrl}/person/${person_id}/movie_credits?api_key=${API_KEY}`;
+
 const apiCall = async (endpoint: string, params?: Record<string, unknown>) => {
   const options = {
     method: 'GET',
@@ -65,11 +71,19 @@ export const fetchMovieSimilar = (id: number) => {
   return apiCall(similarEndpoint(id));
 };
 
-export const image500 = (path: string) =>
+export const fetchPersonDetails = (id: number) => {
+  return apiCall(personDetailsEndpoint(id));
+};
+
+export const fetchPersonCredits = (id: number) => {
+  return apiCall(personCreditsEndpoint(id));
+};
+
+export const image500 = (path?: string) =>
   path ? `https://image.tmdb.org/t/p/w500${path}` : null;
 
-export const image342 = (path: string) =>
+export const image342 = (path?: string) =>
   path ? `https://image.tmdb.org/t/p/w342${path}` : null;
 
-export const image185 = (path: string) =>
+export const image185 = (path?: string) =>
   path ? `https://image.tmdb.org/t/p/w185${path}` : null;

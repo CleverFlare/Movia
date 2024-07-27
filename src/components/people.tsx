@@ -28,7 +28,7 @@ export default function People({
         {people.map((cast, index) => (
           <TouchableWithoutFeedback
             key={`${cast.id} ${cast.original_name} ${index}`}
-            onPress={() => navigation.navigate('Person', {id: 1})}>
+            onPress={() => navigation.navigate('Person', {id: cast.id})}>
             <View className="w-20 space-y-1">
               <Image
                 source={{
