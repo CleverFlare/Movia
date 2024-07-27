@@ -22,10 +22,8 @@ export default function People({
   const dummyName = 'Muhammad Maher';
   const dummyRole = 'Clark Kent';
   return (
-    <View className="space-y-1">
-      <View className="flex-row justify-between items-center">
-        <Text className="text-lg font-bold">{title}</Text>
-      </View>
+    <View className="space-y-2">
+      <Text className="text-xl text-white font-bold">{title}</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

@@ -17,20 +17,24 @@ const {width, height} = Dimensions.get('window');
 export default function MovieList({
   title,
   movies,
+  hideSeeAll = false,
 }: {
   title: string;
   movies: Movie[];
+  hideSeeAll?: boolean;
 }) {
   const navigation = useNavigation();
   const dummyName = 'Ant-Man and the Wasp: Quantumania';
   return (
     <View className="space-y-1">
-      <View className="flex-row justify-between items-center">
-        <Text className="text-lg font-bold">{title}</Text>
-        <TouchableOpacity className="flex-row items-center space-x-1">
-          <Text className="text-neutral-400">See all</Text>
-          <Icon name="chevron-right" />
-        </TouchableOpacity>
+      <View className="flex-row items-center justify-between">
+        <Text className="text-xl text-white font-bold">{title}</Text>
+        {!hideSeeAll && (
+          <TouchableOpacity className="flex-row items-center space-x-1">
+            <Text className="text-neutral-400">See all</Text>
+            <Icon name="chevron-right" />
+          </TouchableOpacity>
+        )}
       </View>
       <ScrollView
         horizontal
@@ -53,7 +57,7 @@ export default function MovieList({
                   : dummyName}
               </Text>
               <View className="flex-row space-x-1 items-center">
-                <Icon name="star" color="yellow" solid size={14} />
+                <Icon name="star" color="orange" solid size={14} />
                 <Text className="text-neutral-400" style={{fontSize: 14}}>
                   4.3
                 </Text>
