@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {type Movie} from '../types/movie';
+import Icon from 'react-native-vector-icons/FontAwesome6';
 
 const {width, height} = Dimensions.get('window');
 
@@ -26,8 +27,9 @@ export default function MovieList({
     <View className="space-y-1">
       <View className="flex-row justify-between items-center">
         <Text className="text-lg font-bold">{title}</Text>
-        <TouchableOpacity>
-          <Text className="text-yellow-500">See all</Text>
+        <TouchableOpacity className="flex-row items-center space-x-1">
+          <Text className="text-neutral-400">See all</Text>
+          <Icon name="chevron-right" />
         </TouchableOpacity>
       </View>
       <ScrollView
