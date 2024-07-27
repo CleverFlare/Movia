@@ -27,11 +27,11 @@ export default function People({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{marginTop: 4, gap: 12}}>
+        contentContainerStyle={{marginTop: 4, gap: 20}}>
         {people.map(cast => (
           <TouchableWithoutFeedback
             key={cast.name}
-            onPress={() => navigation.navigate('Movie', {movieId: 1})}>
+            onPress={() => navigation.navigate('Person', {personId: 1})}>
             <View className="w-20 space-y-1">
               <Image
                 source={require('../assets/actor.jpg')}

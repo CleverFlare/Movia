@@ -39,7 +39,7 @@ export default function MovieList({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{marginTop: 4, gap: 12}}>
+        contentContainerStyle={{marginTop: 4, gap: 20}}>
         {movies.map(movie => (
           <TouchableWithoutFeedback
             key={movie}
