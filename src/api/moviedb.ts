@@ -23,6 +23,8 @@ const personDetailsEndpoint = (person_id: number) =>
 const personCreditsEndpoint = (person_id: number) =>
   `${baseUrl}/person/${person_id}/movie_credits?api_key=${API_KEY}`;
 
+const searchEndpoint = `${baseUrl}/search/movie?api_key=${API_KEY}`;
+
 const apiCall = async (endpoint: string, params?: Record<string, unknown>) => {
   const options = {
     method: 'GET',
@@ -77,6 +79,10 @@ export const fetchPersonDetails = (id: number) => {
 
 export const fetchPersonCredits = (id: number) => {
   return apiCall(personCreditsEndpoint(id));
+};
+
+export const searchMovies = (params: Record<string, string>) => {
+  return apiCall(searchEndpoint, params);
 };
 
 export const image500 = (path?: string) =>
