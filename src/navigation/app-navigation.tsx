@@ -4,11 +4,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/home';
 import MovieScreen from '../screens/movie';
 import PersonScreen from '../screens/person';
+import SearchScreen from '../screens/search';
 
 export type RootStackParamList = {
   Home: undefined;
   Movie: {movieId: number};
   Person: {personId: number};
+  Search: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -31,6 +33,11 @@ export default function AppNavigation() {
           name="Person"
           options={{headerShown: false}}
           component={PersonScreen}
+        />
+        <Stack.Screen
+          name="Search"
+          options={{headerShown: false}}
+          component={SearchScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -7,6 +7,7 @@ import MovieList from '../components/move-list';
 import {type Movie} from '../types/movie';
 import People from '../components/people';
 import {Cast} from '../types/cast';
+import {useNavigation} from '@react-navigation/native';
 
 const ios = Platform.OS === 'ios';
 
@@ -19,6 +20,7 @@ export default function HomeScreen() {
     {name: 'd', role: '', image: ''},
     {name: 'e', role: '', image: ''},
   ]);
+  const navigation = useNavigation();
   return (
     <View className="flex-1 bg-neutral-900">
       <ScrollView
@@ -29,7 +31,9 @@ export default function HomeScreen() {
             ios ? '-mb-2' : 'mb-3' + ' absolute top-0 left-0 w-full p-4 z-30'
           }>
           <View className="flex-row justify-end items-center">
-            <TouchableOpacity className="w-10 h-10 justify-center items-center rounded-full bg-neutral-900">
+            <TouchableOpacity
+              className="w-10 h-10 justify-center items-center rounded-full bg-neutral-900"
+              onPress={() => navigation.navigate('Search')}>
               <Icon
                 name="magnifying-glass"
                 size={20}
