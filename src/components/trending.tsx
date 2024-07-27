@@ -9,17 +9,25 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
+import {type Movie} from '../types/movie';
+import {image500} from '../api/moviedb';
 
 const {width, height} = Dimensions.get('window');
 
-export default function Trending({movies}: {movies: number[]}) {
-  movies;
+export default function Trending({
+  movies,
+  genres,
+}: {
+  movies: Movie[];
+  genres: Record<number, string>;
+}) {
   const [activeSlide, setActiveSlide] = useState<number>(0);
+
   return (
     <View className="flex-col">
       <Carousel
         data={movies}
-        renderItem={({item}) => <MovieCard data={item} />}
+        renderItem={({item}) => <MovieCard data={item} genres={genres} />}
         inactiveSlideOpacity={1}
         inactiveSlideScale={1}
         sliderWidth={width}
@@ -67,22 +75,28 @@ export default function Trending({movies}: {movies: number[]}) {
   );
 }
 
-function MovieCard({data}: {data: number}) {
-  data;
+function MovieCard({
+  data,
+  genres,
+}: {
+  data: Movie;
+  genres: Record<number, string>;
+}) {
   return (
     <TouchableWithoutFeedback>
       <View
         className="overflow-hidden justify-end relative"
         style={{width, height: height * 0.55}}>
         <Image
-          source={require('../assets/dummy_poster.jpg')}
-          className="absolute top-0"
+          source={{uri: image500(data.poster_path) ?? ''}}
+          className="absolute top-0 w-full"
           style={{
             flex: 1,
-            alignSelf: 'stretch',
-            width,
-            height,
+            aspectRatio: 1 / 2,
+            width: width,
+            height: height * 0.6,
           }}
+          resizeMode="cover"
         />
         <LinearGradient
           colors={['transparent', 'rgba(23,23,23,0.8)', 'rgba(23,23,23,1)']}
@@ -92,9 +106,9 @@ function MovieCard({data}: {data: number}) {
           className="absolute bottom-0"
         />
         <View className="mx-4">
-          <Text className="text-2xl font-bold">Captian Marvel</Text>
+          <Text className="text-2xl font-bold">{data.title}</Text>
           <Text className="text-neutral-400 text-sm">
-            Action • Drama • Adventure
+            {data.genre_ids.map(id => genres[id]).join(' • ')}
           </Text>
         </View>
       </View>

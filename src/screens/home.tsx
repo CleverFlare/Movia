@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform, ScrollView, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome6';
@@ -9,11 +9,13 @@ import People from '../components/people';
 import {Cast} from '../types/cast';
 import {useNavigation} from '@react-navigation/native';
 import Loading from '../components/loading';
+import {fetchGenres, fetchTrending} from '../api/moviedb';
 
 const ios = Platform.OS === 'ios';
 
 export default function HomeScreen() {
-  const [trending] = useState<Movie[]>([1, 2, 3]);
+  const [trending, setTrending] = useState<Movie[]>([]);
+  const [genres, setGenres] = useState<Record<number, string>>({});
   const [people] = useState<Cast[]>([
     {name: 'a', role: '', image: ''},
     {name: 'b', role: '', image: ''},
@@ -22,7 +24,33 @@ export default function HomeScreen() {
     {name: 'e', role: '', image: ''},
   ]);
   const navigation = useNavigation();
-  const [loading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    getTrendingMovies();
+  }, []);
+
+  async function getTrendingMovies() {
+    const {genres} = (await fetchGenres()) as {
+      genres: {id: number; name: string}[];
+    };
+
+    if (genres)
+      setGenres(() => {
+        const convertedGenres: Record<number, string> = {};
+
+        for (const genre of genres) {
+          convertedGenres[genre.id] = genre.name;
+        }
+
+        return convertedGenres;
+      });
+
+    const data = await fetchTrending();
+    if (data && data.results) setTrending(data.results.slice(0, 6));
+    setLoading(false);
+  }
+
   return (
     <View className="flex-1 bg-neutral-900">
       {loading ? (
@@ -47,7 +75,7 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
           </SafeAreaView>
-          <Trending movies={trending} />
+          <Trending movies={trending} genres={genres} />
           <View className="p-4" style={{gap: 20}}>
             <MovieList title="Upcoming" movies={trending} />
             <People title="Popular Actors" people={people} />
