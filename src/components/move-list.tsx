@@ -52,6 +52,12 @@ export default function MovieList({
                   ? dummyName.slice(0, 14) + '...'
                   : dummyName}
               </Text>
+              <View className="flex-row space-x-1 items-center">
+                <Icon name="star" color="yellow" solid size={14} />
+                <Text className="text-neutral-400" style={{fontSize: 14}}>
+                  4.3
+                </Text>
+              </View>
             </View>
           </TouchableWithoutFeedback>
         ))}
