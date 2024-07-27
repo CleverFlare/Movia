@@ -35,7 +35,7 @@ export default function HomeScreen() {
           </View>
         </SafeAreaView>
         <Trending movies={trending} />
-        <View className="p-4">
+        <View className="p-4" style={{gap: 20}}>
           <MovieList title="Upcoming" movies={trending} />
           <MovieList title="Top Rated" movies={trending} />
         </View>
