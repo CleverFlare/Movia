@@ -1,10 +1,10 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/home';
 import MovieScreen from '../screens/movie';
 import PersonScreen from '../screens/person';
 import SearchScreen from '../screens/search';
+import {createStackNavigator} from '@react-navigation/stack';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -13,7 +13,7 @@ export type RootStackParamList = {
   Search: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function AppNavigation() {
   return (

@@ -43,7 +43,7 @@ export default function MovieList({
         {movies.map(movie => (
           <TouchableWithoutFeedback
             key={`${movie.id} ${movie.title}`}
-            onPress={() => navigation.navigate('Movie', {id: movie.id})}>
+            onPress={() => navigation.push('Movie', {id: movie.id})}>
             <View className="space-y-1">
               <Image
                 source={{
