@@ -5,16 +5,25 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 import Trending from '../components/trending';
 import MovieList from '../components/move-list';
 import {type Movie} from '../types/movie';
+import People from '../components/people';
+import {Cast} from '../types/cast';
 
 const ios = Platform.OS === 'ios';
 
 export default function HomeScreen() {
   const [trending] = useState<Movie[]>([1, 2, 3]);
+  const [people] = useState<Cast[]>([
+    {name: 'a', role: '', image: ''},
+    {name: 'b', role: '', image: ''},
+    {name: 'c', role: '', image: ''},
+    {name: 'd', role: '', image: ''},
+    {name: 'e', role: '', image: ''},
+  ]);
   return (
     <View className="flex-1 bg-neutral-900">
       <ScrollView
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{paddingBottom: 10, gap: 18}}>
+        contentContainerStyle={{paddingBottom: 10, gap: 10}}>
         <SafeAreaView
           className={
             ios ? '-mb-2' : 'mb-3' + ' absolute top-0 left-0 w-full p-4 z-30'
@@ -37,6 +46,7 @@ export default function HomeScreen() {
         <Trending movies={trending} />
         <View className="p-4" style={{gap: 20}}>
           <MovieList title="Upcoming" movies={trending} />
+          <People title="Popular Actors" people={people} />
           <MovieList title="Top Rated" movies={trending} />
         </View>
       </ScrollView>

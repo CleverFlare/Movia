@@ -23,9 +23,9 @@ export default function MovieList({
   const navigation = useNavigation();
   const dummyName = 'Ant-Man and the Wasp: Quantumania';
   return (
-    <View className="space-y-4">
+    <View className="space-y-1">
       <View className="flex-row justify-between items-center">
-        <Text className="text-lg uppercase font-bold">{title}</Text>
+        <Text className="text-lg font-bold">{title}</Text>
         <TouchableOpacity>
           <Text className="text-yellow-500">See all</Text>
         </TouchableOpacity>
