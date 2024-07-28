@@ -34,17 +34,11 @@ export default function SearchScreen() {
 
     const queriedMovies = await searchMovies({query: e.text});
 
-    console.log(e.text);
-
     if (queriedMovies && queriedMovies.results)
       setResults(queriedMovies.results);
 
     setLoading(false);
   }
-
-  useEffect(() => {
-    console.log('Results:', results);
-  }, [results]);
 
   return (
     <SafeAreaView className="flex-1 bg-neutral-900">

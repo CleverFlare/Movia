@@ -25,16 +25,21 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    getTrendingMovies();
-    getPopularActors();
-    getTopRatedMovies();
-    getUpcomingMovies();
+    handleDataFetching();
   }, []);
+
+  async function handleDataFetching() {
+    await getTrendingMovies();
+    await getPopularActors();
+    await getTopRatedMovies();
+    await getUpcomingMovies();
+    setLoading(false);
+  }
+
   async function getUpcomingMovies() {
     const upcomingMovies = await fetchUpcoming();
     if (upcomingMovies && upcomingMovies.results)
       setUpcoming(upcomingMovies.results);
-    setLoading(false);
   }
 
   async function getTopRatedMovies() {
