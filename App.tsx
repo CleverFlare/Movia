@@ -5,10 +5,14 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import AppNavigation from './src/navigation/app-navigation';
+import SplashScreen from 'react-native-splash-screen';
 
 function App(): React.JSX.Element {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return <AppNavigation />;
 }
 
