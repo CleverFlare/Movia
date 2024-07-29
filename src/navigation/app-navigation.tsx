@@ -5,12 +5,14 @@ import MovieScreen from '../screens/movie';
 import PersonScreen from '../screens/person';
 import SearchScreen from '../screens/search';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import LoginScreen from '../screens/login';
 
 export type RootStackParamList = {
   Home: undefined;
   Movie: {id: number};
   Person: {id: number};
   Search: undefined;
+  Login: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -18,7 +20,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function AppNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          options={{headerShown: false}}
+          component={LoginScreen}
+        />
         <Stack.Screen
           name="Home"
           options={{headerShown: false}}
