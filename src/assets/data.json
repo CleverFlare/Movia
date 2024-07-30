@@ -5,7 +5,8 @@
     "lastName": "Maher",
     "username": "flare",
     "email": "blastclever@gmail.com",
-    "password": "FlareM!22"
+    "password": "FlareM!22",
+    "image": "https://i.pinimg.com/originals/6f/6a/d8/6f6ad850a31e051d40d309f675df27e2.jpg"
   },
   {
     "id": "abc2",
@@ -13,6 +14,7 @@
     "lastName": "Muhammad",
     "username": "kammula",
     "email": "themadgester@gmail.com",
-    "password": "KamalMuhammad$32"
+    "password": "KamalMuhammad$32",
+    "image": "https://qph.cf2.quoracdn.net/main-qimg-5eb631ae6f587af2631f6d3348047693.webp"
   }
 ]

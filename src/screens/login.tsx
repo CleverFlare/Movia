@@ -9,6 +9,7 @@ import {Image, View, Text, TouchableWithoutFeedback} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import data from '../assets/data.json';
 import Snackbar from 'react-native-snackbar';
+import useUserSession from '../hooks/use-user-session';
 
 const loginSchema = yup.object().shape({
   username: yup.string().required().min(2),
@@ -28,20 +29,28 @@ type FormValues = yup.InferType<typeof loginSchema>;
 
 export default function LoginScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const {createUserSession} = useUserSession();
   const formik = useFormik<FormValues>({
     initialValues: {
       username: '',
       password: '',
     },
     validationSchema: loginSchema,
-    onSubmit: values => {
+    onSubmit: async values => {
       let isCorrectUser = false;
       for (const user of data) {
         if (
           user.username === values.username &&
           user.password === values.password
-        )
+        ) {
+          const userReplica: Partial<typeof user> = user;
+
+          delete userReplica.password;
+
           isCorrectUser = true;
+
+          createUserSession(userReplica);
+        }
       }
 
       if (isCorrectUser) navigation.replace('Home');

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Platform, ScrollView, TouchableOpacity, View} from 'react-native';
+import {Platform, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 import Trending from '../components/trending';
@@ -12,6 +12,7 @@ import Loading from '../components/loading';
 import {fetchGenres, fetchPopularPeople, fetchTrending} from '../api/moviedb';
 import {fetchTopRated} from '../api/moviedb';
 import {fetchUpcoming} from '../api/moviedb';
+import useUserSession from '../hooks/use-user-session';
 
 const ios = Platform.OS === 'ios';
 
@@ -21,6 +22,7 @@ export default function HomeScreen() {
   const [upcoming, setUpcoming] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<Record<number, string>>({});
   const [people, setPeople] = useState<Cast[]>([]);
+  const {session} = useUserSession();
   const navigation = useNavigation();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -91,6 +93,7 @@ export default function HomeScreen() {
                 onPress={() => navigation.navigate('Chat')}>
                 <Icon name="message" size={20} style={{color: 'white'}} />
               </TouchableOpacity>
+              <Text>{session?.username as string}</Text>
               <TouchableOpacity
                 className="w-10 h-10 justify-center items-center rounded-full bg-neutral-900"
                 onPress={() => navigation.navigate('Search')}>
