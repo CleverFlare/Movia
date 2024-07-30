@@ -28,6 +28,8 @@ export default function HomeScreen() {
 
   useEffect(() => {
     handleDataFetching();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function handleDataFetching() {
