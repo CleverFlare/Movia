@@ -7,9 +7,11 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/app-navigation';
 import {Image, View, Text, TouchableWithoutFeedback} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import data from '../assets/data.json';
+import Snackbar from 'react-native-snackbar';
 
 const loginSchema = yup.object().shape({
-  email: yup.string().required().email(),
+  username: yup.string().required().min(2),
   password: yup
     .string()
     .required()
@@ -28,12 +30,26 @@ export default function LoginScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const formik = useFormik<FormValues>({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
     },
     validationSchema: loginSchema,
-    onSubmit: () => {
-      navigation.replace('Home');
+    onSubmit: values => {
+      let isCorrectUser = false;
+      for (const user of data) {
+        if (
+          user.username === values.username &&
+          user.password === values.password
+        )
+          isCorrectUser = true;
+      }
+
+      if (isCorrectUser) navigation.replace('Home');
+      else
+        Snackbar.show({
+          text: 'Incorrect username or password',
+          backgroundColor: '#dc2626',
+        });
     },
   });
 
@@ -50,11 +66,11 @@ export default function LoginScreen() {
           Enter your email and password below to get started
         </Text>
         <TextInput
-          value={formik.values.email}
-          placeholder="email..."
-          error={formik.errors.email}
-          touched={formik.touched.email}
-          onChangeText={formik.handleChange('email')}
+          value={formik.values.username}
+          placeholder="username..."
+          error={formik.errors.username}
+          touched={formik.touched.username}
+          onChangeText={formik.handleChange('username')}
         />
         <TextInput
           value={formik.values.password}

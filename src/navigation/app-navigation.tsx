@@ -6,6 +6,7 @@ import PersonScreen from '../screens/person';
 import SearchScreen from '../screens/search';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '../screens/login';
+import ChatScreen from '../screens/chat';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -13,6 +14,7 @@ export type RootStackParamList = {
   Person: {id: number};
   Search: undefined;
   Login: undefined;
+  Chat: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,6 +32,11 @@ export default function AppNavigation() {
           name="Home"
           options={{headerShown: false}}
           component={HomeScreen}
+        />
+        <Stack.Screen
+          name="Chat"
+          options={{headerShown: false}}
+          component={ChatScreen}
         />
         <Stack.Screen
           name="Movie"

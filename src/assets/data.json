@@ -1,0 +1,18 @@
+[
+  {
+    "id": "abc",
+    "firstName": "Muhammad",
+    "lastName": "Maher",
+    "username": "flare",
+    "email": "blastclever@gmail.com",
+    "password": "FlareM!22"
+  },
+  {
+    "id": "abc2",
+    "firstName": "Kamal",
+    "lastName": "Muhammad",
+    "username": "kammula",
+    "email": "themadgester@gmail.com",
+    "password": "KamalMuhammad$32"
+  }
+]

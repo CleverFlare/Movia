@@ -85,7 +85,12 @@ export default function HomeScreen() {
             className={
               ios ? '-mb-2' : 'mb-3' + ' absolute top-0 left-0 w-full p-4 z-30'
             }>
-            <View className="flex-row justify-end items-center">
+            <View className="flex-row justify-between items-center">
+              <TouchableOpacity
+                className="w-10 h-10 justify-center items-center rounded-full bg-neutral-900"
+                onPress={() => navigation.navigate('Chat')}>
+                <Icon name="message" size={20} style={{color: 'white'}} />
+              </TouchableOpacity>
               <TouchableOpacity
                 className="w-10 h-10 justify-center items-center rounded-full bg-neutral-900"
                 onPress={() => navigation.navigate('Search')}>
