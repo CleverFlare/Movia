@@ -43,7 +43,7 @@ export default function LoginScreen() {
           user.username === values.username &&
           user.password === values.password
         ) {
-          const userReplica: Partial<typeof user> = user;
+          const userReplica: Partial<typeof user> = {...user};
 
           delete userReplica.password;
 
@@ -70,7 +70,9 @@ export default function LoginScreen() {
           style={{height: 150, marginBottom: 32}}
           resizeMode="contain"
         />
-        <Text className="text-center text-4xl font-bold">Sign in</Text>
+        <Text className="text-center text-4xl font-bold text-white">
+          Sign in
+        </Text>
         <Text className="text-center text-neutral-400">
           Enter your email and password below to get started
         </Text>

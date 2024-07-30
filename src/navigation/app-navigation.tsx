@@ -10,11 +10,13 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 
 import LoginScreen from '../screens/login';
 import ChatScreen from '../screens/chat';
+import ProfileScreen from '../screens/profile';
 
 export type RootTabParamList = {
   HomeTab: undefined;
   Search: undefined;
   Chat: undefined;
+  Profile: undefined;
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -80,6 +82,24 @@ function TabNavigator() {
           tabBarIcon: ({focused}) => (
             <Icon
               name="magnifying-glass"
+              solid
+              size={20}
+              color={focused ? ACTIVE_TINT : INACTIVE_TINT}
+            />
+          ),
+          tabBarActiveTintColor: ACTIVE_TINT,
+          tabBarInactiveTintColor: INACTIVE_TINT,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          headerShown: false,
+          title: 'Profile',
+          tabBarIcon: ({focused}) => (
+            <Icon
+              name="user"
               solid
               size={20}
               color={focused ? ACTIVE_TINT : INACTIVE_TINT}
