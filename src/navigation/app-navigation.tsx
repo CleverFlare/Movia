@@ -5,16 +5,99 @@ import MovieScreen from '../screens/movie';
 import PersonScreen from '../screens/person';
 import SearchScreen from '../screens/search';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome6';
+
 import LoginScreen from '../screens/login';
 import ChatScreen from '../screens/chat';
+
+export type RootTabParamList = {
+  HomeTab: undefined;
+  Search: undefined;
+  Chat: undefined;
+};
+
+const Tab = createBottomTabNavigator<RootTabParamList>();
+
+const INACTIVE_TINT = '#737373';
+const ACTIVE_TINT = '#dc2626';
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+      initialRouteName="HomeTab"
+      screenOptions={() => ({
+        tabBarStyle: {
+          backgroundColor: '#262626',
+          borderTopWidth: 0,
+          paddingVertical: 10,
+          height: 60,
+        },
+        tabBarLabelStyle: {paddingBottom: 10},
+      })}>
+      <Tab.Screen
+        name="HomeTab"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          title: 'Home',
+          tabBarIcon: ({focused}) => (
+            <Icon
+              name="house"
+              solid
+              size={20}
+              color={focused ? ACTIVE_TINT : INACTIVE_TINT}
+            />
+          ),
+          tabBarActiveTintColor: ACTIVE_TINT,
+          tabBarInactiveTintColor: INACTIVE_TINT,
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          headerShown: false,
+          title: 'Chat',
+          tabBarIcon: ({focused}) => (
+            <Icon
+              name="message"
+              solid
+              size={20}
+              color={focused ? ACTIVE_TINT : INACTIVE_TINT}
+            />
+          ),
+          tabBarActiveTintColor: ACTIVE_TINT,
+          tabBarInactiveTintColor: INACTIVE_TINT,
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerShown: false,
+          title: 'Search',
+          tabBarIcon: ({focused}) => (
+            <Icon
+              name="magnifying-glass"
+              solid
+              size={20}
+              color={focused ? ACTIVE_TINT : INACTIVE_TINT}
+            />
+          ),
+          tabBarActiveTintColor: ACTIVE_TINT,
+          tabBarInactiveTintColor: INACTIVE_TINT,
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 export type RootStackParamList = {
   Home: undefined;
   Movie: {id: number};
   Person: {id: number};
-  Search: undefined;
   Login: undefined;
-  Chat: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -31,12 +114,7 @@ export default function AppNavigation() {
         <Stack.Screen
           name="Home"
           options={{headerShown: false}}
-          component={HomeScreen}
-        />
-        <Stack.Screen
-          name="Chat"
-          options={{headerShown: false}}
-          component={ChatScreen}
+          component={TabNavigator}
         />
         <Stack.Screen
           name="Movie"
@@ -47,11 +125,6 @@ export default function AppNavigation() {
           name="Person"
           options={{headerShown: false}}
           component={PersonScreen}
-        />
-        <Stack.Screen
-          name="Search"
-          options={{headerShown: false}}
-          component={SearchScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

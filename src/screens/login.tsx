@@ -3,13 +3,13 @@ import React from 'react';
 import * as yup from 'yup';
 import TextInput from '../components/text-input';
 import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/app-navigation';
 import {Image, View, Text, TouchableWithoutFeedback} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import data from '../assets/data.json';
 import Snackbar from 'react-native-snackbar';
 import useUserSession from '../hooks/use-user-session';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const loginSchema = yup.object().shape({
   username: yup.string().required().min(2),
@@ -53,7 +53,7 @@ export default function LoginScreen() {
         }
       }
 
-      if (isCorrectUser) navigation.replace('Home');
+      if (isCorrectUser) navigation.navigate('Home');
       else
         Snackbar.show({
           text: 'Incorrect username or password',
