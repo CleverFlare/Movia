@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Platform, ScrollView, View} from 'react-native';
+import {Platform, ScrollView, Text, View} from 'react-native';
 import Trending from '../components/trending';
 import MovieList from '../components/movie-list';
 import {type Movie} from '../types/movie';
@@ -9,6 +9,7 @@ import Loading from '../components/loading';
 import {fetchGenres, fetchPopularPeople, fetchTrending} from '../api/moviedb';
 import {fetchTopRated} from '../api/moviedb';
 import {fetchUpcoming} from '../api/moviedb';
+import useUserSession from '../hooks/use-user-session';
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState<Movie[]>([]);
@@ -69,6 +70,8 @@ export default function HomeScreen() {
     if (data && data.results) setTrending(data.results.slice(0, 6));
   }
 
+  const {session} = useUserSession();
+
   return (
     <View className="flex-1 bg-neutral-900">
       {loading ? (
@@ -77,6 +80,7 @@ export default function HomeScreen() {
         <ScrollView
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{paddingBottom: 10, gap: 10}}>
+          <Text>Hi there, {(session?.username as string) ?? 'Unknown'}</Text>
           <Trending movies={trending} genres={genres} />
           <View className="p-4" style={{gap: 20}}>
             <MovieList title="Upcoming" movies={upcoming} />

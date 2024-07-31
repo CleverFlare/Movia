@@ -12,12 +12,17 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/app-navigation';
+import {StreamChat} from 'stream-chat';
+import {STREAM_KEY} from '../../constants';
 
+const chatClient = StreamChat.getInstance(STREAM_KEY);
 export default function ProfileScreen() {
   const {session, destroyUserSession} = useUserSession();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   async function handleSignOut() {
+    await chatClient.disconnectUser();
+
     await destroyUserSession();
 
     navigation.replace('Login');

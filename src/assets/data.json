@@ -1,6 +1,6 @@
 [
   {
-    "id": "abc",
+    "id": "abc1",
     "firstName": "Muhammad",
     "lastName": "Maher",
     "username": "flare",
@@ -14,7 +14,7 @@
     "lastName": "Muhammad",
     "username": "kammula",
     "email": "themadgester@gmail.com",
-    "password": "KamalMuhammad$32",
+    "password": "Kamal$32",
     "image": "https://qph.cf2.quoracdn.net/main-qimg-5eb631ae6f587af2631f6d3348047693.webp"
   }
 ]

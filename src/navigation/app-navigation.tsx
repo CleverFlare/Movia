@@ -9,13 +9,58 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome6';
 
 import LoginScreen from '../screens/login';
-import ChatScreen from '../screens/chat';
+import ChannelListScreen from '../screens/channel-list';
 import ProfileScreen from '../screens/profile';
+import ChannelScreen from '../screens/channel';
+
+export type RootStackParamList = {
+  Home: undefined;
+  Movie: {id: number};
+  Person: {id: number};
+  Login: undefined;
+  Channel: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export default function AppNavigation() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          options={{headerShown: false}}
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          name="Home"
+          options={{headerShown: false}}
+          component={TabNavigator}
+        />
+        <Stack.Screen
+          name="Channel"
+          options={{headerShown: false}}
+          component={ChannelScreen}
+        />
+        <Stack.Screen
+          name="Movie"
+          options={{headerShown: false}}
+          component={MovieScreen}
+        />
+        <Stack.Screen
+          name="Person"
+          options={{headerShown: false}}
+          component={PersonScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export type RootTabParamList = {
   HomeTab: undefined;
   Search: undefined;
-  Chat: undefined;
+  ChannelList: undefined;
   Profile: undefined;
 };
 
@@ -56,8 +101,8 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Chat"
-        component={ChatScreen}
+        name="ChannelList"
+        component={ChannelListScreen}
         options={{
           headerShown: false,
           title: 'Chat',
@@ -110,43 +155,5 @@ function TabNavigator() {
         }}
       />
     </Tab.Navigator>
-  );
-}
-
-export type RootStackParamList = {
-  Home: undefined;
-  Movie: {id: number};
-  Person: {id: number};
-  Login: undefined;
-};
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
-
-export default function AppNavigation() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Login"
-          options={{headerShown: false}}
-          component={LoginScreen}
-        />
-        <Stack.Screen
-          name="Home"
-          options={{headerShown: false}}
-          component={TabNavigator}
-        />
-        <Stack.Screen
-          name="Movie"
-          options={{headerShown: false}}
-          component={MovieScreen}
-        />
-        <Stack.Screen
-          name="Person"
-          options={{headerShown: false}}
-          component={PersonScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
   );
 }

@@ -1,14 +1,18 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {
   createUserSession as createUserSessionUtil,
   destroyUserSession as destroyUserSessionUtil,
   getUserSession,
 } from '../utils/user-session';
+import {useUserSession as useSession} from '../components/user-session-context';
 
 export default function useUserSession() {
-  const [session, setSession] = useState<Record<string, unknown> | null>(null);
+  const {session, setSession} = useSession();
+
   useEffect(() => {
     handleSettingSession();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function createUserSession(userObject: Record<string, unknown>) {
