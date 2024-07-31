@@ -30,7 +30,6 @@ export default function ChannelListScreen() {
 
   return (
     <View className="flex-1 bg-neutral-900">
-      <Text className="text-center text-white">Channel List</Text>
       <ChannelList
         filters={filters}
         sort={sort}
